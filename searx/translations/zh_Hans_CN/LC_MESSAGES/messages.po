@@ -661,7 +661,7 @@ msgstr "功能来自"
 
 #: searx/templates/simple/base.html:68
 msgid "a privacy-respecting, open metasearch engine"
-msgstr "尊重隐私的开源元搜索引擎"
+msgstr "尊重隐私的开源元搜索引擎，吼吼～"
 
 #: searx/templates/simple/base.html:69
 #: searx/templates/simple/result_templates/packages.html:59
