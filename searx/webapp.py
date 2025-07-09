@@ -118,7 +118,7 @@ from searx.locales import (
 from searx.autocomplete import search_autocomplete, backends as autocomplete_backends
 from searx import favicons
 
-from searx.redisdb import initialize as redis_initialize
+from searx.valkeydb import initialize as valkey_initialize
 from searx.sxng_locales import sxng_locales
 import searx.search
 from searx.network import stream as http_stream, set_context_network_name
@@ -1350,9 +1350,9 @@ def is_werkzeug_reload_active() -> bool:
     .. _werkzeug.serving:
        https://werkzeug.palletsprojects.com/en/stable/serving/#werkzeug.serving.run_simple
     """
-
-    if "uwsgi" in sys.argv:
-        # server was launched by uWSGI
+    logger.debug("sys.argv: %s", sys.argv)
+    if "uwsgi" in sys.argv[0] or "granian" in sys.argv[0]:
+        # server was launched by granian (or uWSGI)
         return False
 
     # https://github.com/searxng/searxng/pull/1656#issuecomment-1214198941
@@ -1397,7 +1397,7 @@ def init():
         return
 
     locales_initialize()
-    redis_initialize()
+    valkey_initialize()
     searx.plugins.initialize(app)
 
     metrics: bool = get_setting("general.enable_metrics")  # type: ignore
